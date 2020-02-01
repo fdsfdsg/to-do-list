@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   handleCreate = () => {
-    const { input, todos } = this.state;
+    const { input, todos} = this.state;
     this.setState({
       input: '', // 인풋 비우고
       // concat 을 사용하여 배열에 추가
@@ -78,7 +78,7 @@ class App extends Component {
 
     return (
       <TodoListTemplate form={(
-        <Form
+        <Form 
           value={input}
           onKeyPress={handleKeyPress}
           onChange={handleChange}
