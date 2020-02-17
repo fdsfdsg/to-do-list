@@ -5,12 +5,41 @@ import TodoItemList from './components/TodoItemList'
 
 class App extends Component {
 
-  id = 0
+  id = 2
 
   state = {
     input: ' ',
     todos : [
+      {
+        text: "react 공부하기",
+        id: 0
+      },
+      {
+        text: "express 공부하기",
+        id: 1
+      }
     ]
+  }
+  
+  UNSAFE_componentWillMount() {
+    const todos = localStorage.todos;
+    const id = localStorage.id;
+
+    if (todos) {
+      this.setState({
+        todos: JSON.parse(todos),
+        id,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (JSON.stringify(prevState.todos) !== JSON.stringify(this.state.todos)) {
+      localStorage.todos = JSON.stringify(this.state.todos)
+    }
+    if (prevState.id !== this.state.id) {
+      localStorage.id = this.state.id
+    }
   }
 
   handleChange = (e) => {
