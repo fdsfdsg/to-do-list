@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { MdAdd } from "react-icons/md";
+import React from "react";
 import "./TodoInsert.scss";
 import "./TodoListItem.scss";
 import TodoList from "./TodoList";
@@ -16,9 +15,9 @@ const Todos = ({
 }) => {
   return (
     <TodoTemplate>
-    <TodoInsert onInsert={onInsert} />
-    <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
-  </TodoTemplate>
+      <TodoInsert onInsert={onInsert} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+    </TodoTemplate>
   );
 };
 
