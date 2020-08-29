@@ -15,7 +15,7 @@ const Todos = ({
 }) => {
   return (
     <TodoTemplate>
-      <TodoInsert onInsert={onInsert} />
+      <TodoInsert onInsert={onInsert} onChangeInput={onChangeInput} input={input} />
       <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );

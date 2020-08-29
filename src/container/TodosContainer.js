@@ -4,9 +4,9 @@ import { changeInput, insert, toggle, remove } from "../modules/todos";
 import Todos from "../components/Todos";
 
 const TodosContainer = () => {
-  const { input, todos } = useSelector(({ todos }) => ({
+  const { input, todos } = useSelector( ({todos}) => ({
     input: todos.input,
-    todos: todos.todos,
+    todos: todos.todos, //rootReducer가 todos인 상태중 todos
   }));
   const dispatch = useDispatch();
   const onChangeInput = useCallback((input) => dispatch(changeInput(input)), [

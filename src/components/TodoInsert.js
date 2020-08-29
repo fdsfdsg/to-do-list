@@ -1,26 +1,26 @@
 import React, { useState, useCallback } from "react";
 import { MdAdd } from "react-icons/md";
 import "./TodoInsert.scss";
-const TodoInsert = ({ onInsert }) => {
-  const [value, setValue] = useState("");
+const TodoInsert = ({ onInsert, onChangeInput, input }) => {
+
   const onChange = useCallback((e) => {
-    setValue(e.target.value);
+    onChangeInput(e.target.value);
   }, []);
+
   const onSubmit = useCallback(
     (e) => {
-      onInsert(value);
-      setValue("");
-
+      onInsert(input);
+      onChangeInput("");
       e.preventDefault();
     },
-    [onInsert, value]
+    [onInsert, input]
   );
 
   return (
     <form className="TodoInsert" onSubmit={onSubmit}>
       <input
         placeholder="할일을 입력해주세요"
-        value={value}
+        value={input}
         onChange={onChange}
       />
       <button type="submit">
