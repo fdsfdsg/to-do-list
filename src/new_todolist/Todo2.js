@@ -1,4 +1,4 @@
-import React, { useState, useRef, use } from "react";
+import React, { useState, useRef } from "react";
 import Todolist2 from "./Todolist2";
 // import TodoInsert2 from "./TodoInsert2";
 
@@ -47,11 +47,21 @@ const Todo2 = () => {
   };
 
   const onCheckToggleHandler = (todoId) => {
-    setTodo(todo.map(todos => todos.id === todoId ? {...todos, checked: !todos.checked} : todos));
+    setTodo(
+      todo.map((todos) =>
+        todos.id === todoId ? { ...todos, checked: !todos.checked } : todos
+      )
+    );
   };
 
-  const onEditHandler = (todoId) => {
-  }
+  const onEditHandler = (todoId, aa) => {
+    setTodo(
+      todo.map((todos) =>
+        todos.id === todoId ? { ...todos, text: aa} : todos
+      )
+    );
+    setTodoInput("");
+  };
 
   return (
     <form type="submit" onSubmit={onClickfForm}>
@@ -76,8 +86,10 @@ const Todo2 = () => {
 
         <Todolist2
           todo={todo}
+          setTodo={setTodo}
           onDeleteHandler={onDeleteHandler}
           onCheckToggleHandler={onCheckToggleHandler}
+          onEditHandler={onEditHandler}
         />
       </div>
     </form>

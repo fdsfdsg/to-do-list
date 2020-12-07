@@ -1,6 +1,33 @@
 import React, { useState } from "react";
 
-const TodolistItem2 = ({ todos, onDeleteHandler, onCheckToggleHandler }) => {
+const TodolistItem2 = ({
+  todos,
+  setTodo,
+  onDeleteHandler,
+  onCheckToggleHandler,
+  onEditHandler,
+}) => {
+  const [toggle, setToggle] = useState(true);
+  const [edit, setEdit] = useState(todos.text);
+
+  const onToggleHandler = (id) => {
+    if (!toggle && todos.text !== edit) {
+      onEditHandler(id, edit);
+    }
+    setToggle(!toggle);
+  };
+
+  const onChangeText = (e) => {
+    setEdit(e.target.value);
+  };
+
+  const onChangeHandler = () => {
+    if (!toggle) {
+      return;
+    }
+    onCheckToggleHandler(todos.id);
+  };
+
   return (
     <div
       style={{
@@ -11,25 +38,48 @@ const TodolistItem2 = ({ todos, onDeleteHandler, onCheckToggleHandler }) => {
         margin: 20,
       }}
     >
-      <div onClick={() => onCheckToggleHandler(todos.id)} style={{ display: "flex", flexDirection: "row" }}>
-        {todos.checked ? (
+      <div onClick={onChangeHandler} style={{ display: "flex", flexDirection: "row" }}>
+        {todos.checked && toggle ? (
           <>
             <div
               style={{ width: 20, height: 20, backgroundColor: "green" }}
             ></div>
-            <div style={{ textDecoration: "line-through", marginLeft: 10 }}>{todos.text}</div>
+            <div style={{ textDecoration: "line-through", marginLeft: 10 }}>
+              {todos.text}
+            </div>
           </>
         ) : (
           <>
-            <div
-              style={{ width: 20, height: 20, boxSizing:'border-box', border: "1px solid black" }}
-            ></div>
-            <div style={{ marginLeft: 10}}>{todos.text}</div>
+            {toggle ? (
+              <div
+                style={{
+                  width: 20,
+                  height: 20,
+                  boxSizing: "border-box",
+                  border: "1px solid black",
+                }}
+              ></div>
+            ) : (
+              <></>
+            )}
+            <div style={{ marginLeft: 10 }}>
+              {toggle ? (
+                todos.text
+              ) : (
+                <input
+                  style={{ fontSize: 20 }}
+                  onChange={onChangeText}
+                  value={edit}
+                />
+              )}
+            </div>
           </>
         )}
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div>수정</div>
+        <div onClick={() => onToggleHandler(todos.id)}>
+          {toggle ? "수정" : "적용"}
+        </div>
         <div
           onClick={() => onDeleteHandler(todos.id)}
           style={{ marginRight: 20, marginLeft: 20 }}
