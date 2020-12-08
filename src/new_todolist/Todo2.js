@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Todolist2 from "./Todolist2";
-// import TodoInsert2 from "./TodoInsert2";
+import TodoInsert2 from "./TodoInsert2";
+import TodoHeader from "./TodoHeader";
 
 const Todo2 = () => {
   const [todoInput, setTodoInput] = useState("");
@@ -12,18 +13,28 @@ const Todo2 = () => {
     },
     {
       id: 2,
-      text: "노드 공부",
-      checked: false,
+      text: "노드공부",
+      checked: true,
     },
   ]);
   let nextId = useRef(3);
 
+  //   const setTestData = () => {
+  //     let a = [];
+  //     for (let i = 0; i < 1000; i++) {
+  //       a.push({ id: nextId.current++, text: i, checked: false });
+  //     }
+  //     setTodo(a);
+  //   };
+  //   useEffect(() => {
+  //     setTestData();
+  //   }, []);
   const onClickfForm = (e) => {
     e.preventDefault();
     console.log("투두리스트 작성");
   };
 
-  const onInsertHandler = () => {
+  const onInsertHandler = useCallback(() => {
     if (!todoInput) {
       alert("할 일을 입력해주세요");
       return;
@@ -35,33 +46,34 @@ const Todo2 = () => {
     //   { id: nextId.current++, text: todoInput, checked: false },
     // ]);
     setTodoInput("");
-  };
+  },[todo, todoInput]);
 
   const onChangeInput = (e) => {
     setTodoInput(e.target.value);
     console.log(e.target.value);
   };
 
-  const onDeleteHandler = (todoId) => {
+  const onDeleteHandler = useCallback((todoId) => {
     setTodo(todo.filter((todos) => todos.id !== todoId));
-  };
+  }, [todo]);
 
-  const onCheckToggleHandler = (todoId) => {
+  const onCheckToggleHandler = useCallback((todoId) => {
     setTodo(
       todo.map((todos) =>
         todos.id === todoId ? { ...todos, checked: !todos.checked } : todos
       )
     );
-  };
+    console.log(todo);
+  }, [todo]);
 
-  const onEditHandler = (todoId, aa) => {
+  const onEditHandler = useCallback((todoId, editedText) => {
     setTodo(
       todo.map((todos) =>
-        todos.id === todoId ? { ...todos, text: aa} : todos
+        todos.id === todoId ? { ...todos, text: editedText } : todos
       )
     );
     setTodoInput("");
-  };
+  }, [todo]);
 
   return (
     <form type="submit" onSubmit={onClickfForm}>
@@ -75,25 +87,25 @@ const Todo2 = () => {
       >
         <div style={{ fontSize: 50 }}>TO-DO-LIST</div>
 
-        <div style={{ display: "flex" }}>
-          <input
-            style={{ maxWidth: 500, fontSize: 50 }}
-            onChange={onChangeInput}
-            value={todoInput}
-          />
-          <button onClick={onInsertHandler} style={{ width: 50 }} />
-        </div>
+        <TodoHeader todo={todo} />
 
-        <Todolist2
-          todo={todo}
-          setTodo={setTodo}
-          onDeleteHandler={onDeleteHandler}
-          onCheckToggleHandler={onCheckToggleHandler}
-          onEditHandler={onEditHandler}
+        <TodoInsert2
+          onInsertHandler={onInsertHandler}
+          onChangeInput={onChangeInput}
+          todoInput={todoInput}
         />
+
+        <div style={{ overflowY: "auto", height: 650 }}>
+          <Todolist2
+            todo={todo}
+            onDeleteHandler={onDeleteHandler}
+            onCheckToggleHandler={onCheckToggleHandler}
+            onEditHandler={onEditHandler}
+          />
+        </div>
       </div>
     </form>
   );
 };
 
-export default React.memo(Todo2);
+export default Todo2;

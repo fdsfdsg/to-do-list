@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const TodolistItem2 = ({
   todos,
-  setTodo,
   onDeleteHandler,
   onCheckToggleHandler,
   onEditHandler,
@@ -38,7 +37,10 @@ const TodolistItem2 = ({
         margin: 20,
       }}
     >
-      <div onClick={onChangeHandler} style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        onClick={onChangeHandler}
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         {todos.checked && toggle ? (
           <>
             <div
@@ -48,32 +50,25 @@ const TodolistItem2 = ({
               {todos.text}
             </div>
           </>
-        ) : (
+        ) : toggle ? (
           <>
-            {toggle ? (
-              <div
-                style={{
-                  width: 20,
-                  height: 20,
-                  boxSizing: "border-box",
-                  border: "1px solid black",
-                }}
-              ></div>
-            ) : (
-              <></>
-            )}
-            <div style={{ marginLeft: 10 }}>
-              {toggle ? (
-                todos.text
-              ) : (
-                <input
-                  style={{ fontSize: 20 }}
-                  onChange={onChangeText}
-                  value={edit}
-                />
-              )}
-            </div>
+            <div
+              style={{
+                width: 20,
+                height: 20,
+                boxSizing: "border-box",
+                border: "1px solid black",
+                marginRight: 10,
+              }}
+            ></div>
+            {todos.text}
           </>
+        ) : (
+          <input
+            style={{ fontSize: 20 }}
+            onChange={onChangeText}
+            value={edit}
+          />
         )}
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -91,4 +86,4 @@ const TodolistItem2 = ({
   );
 };
 
-export default TodolistItem2;
+export default React.memo(TodolistItem2);
