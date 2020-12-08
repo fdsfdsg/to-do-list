@@ -11,7 +11,6 @@ const Todolist2 = ({
     <div
       key={index}
       style={{
-        border: "1px solid black",
         width: 500,
         height: 65,
       }}

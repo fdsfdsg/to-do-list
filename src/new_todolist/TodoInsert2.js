@@ -1,14 +1,17 @@
 import React from "react";
+import { Button, Input } from "antd";
 
 const TodoInsert2 = ({ onInsertHandler, todoInput, onChangeInput }) => {
   return (
     <div style={{ display: "flex" }}>
-      <input
-        style={{ maxWidth: 500, fontSize: 50 }}
+      <Input
+        style={{ maxWidth: 500, fontSize: 20 }}
         onChange={onChangeInput}
         value={todoInput}
       />
-      <button onClick={onInsertHandler} style={{ width: 50 }} />
+      <Button onClick={onInsertHandler} size={'large'} >
+        추가
+      </Button>
     </div>
   );
 };

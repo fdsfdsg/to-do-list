@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Input } from "antd";
 
 const TodolistItem2 = ({
   todos,
@@ -34,7 +35,11 @@ const TodolistItem2 = ({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        margin: 20,
+        padding: 20,
+        marginTop: 10,
+        marginBottom: 10,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 10,
       }}
     >
       <div
@@ -64,8 +69,7 @@ const TodolistItem2 = ({
             {todos.text}
           </>
         ) : (
-          <input
-            style={{ fontSize: 20 }}
+          <Input
             onChange={onChangeText}
             value={edit}
           />

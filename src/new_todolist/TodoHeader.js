@@ -18,4 +18,4 @@ const TodoHeader = ({ todo }) => {
   );
 };
 
-export default TodoHeader;
+export default React.memo(TodoHeader);
