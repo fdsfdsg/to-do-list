@@ -38,7 +38,7 @@ const TodolistItem2 = ({
         padding: 20,
         marginTop: 10,
         marginBottom: 10,
-        backgroundColor: '#f0f0f0',
+        border: '0.3px solid #f0f0f0',
         borderRadius: 10,
       }}
     >
@@ -49,7 +49,7 @@ const TodolistItem2 = ({
         {todos.checked && toggle ? (
           <>
             <div
-              style={{ width: 20, height: 20, backgroundColor: "green" }}
+              style={{ width: 20, height: 20, backgroundColor: "#45ffd0" }}
             ></div>
             <div style={{ textDecoration: "line-through", marginLeft: 10 }}>
               {todos.text}

@@ -12,6 +12,7 @@ const TodoHeader = ({ todo }) => {
   const dayName = today.toLocaleDateString("ko-KR", { weekday: "long" });
   return (
     <div>
+      <div style={{ fontSize: 50, textAlign:'center' }}>TO-DO-LIST</div>
       <h1>{dateString} {dayName}</h1>
       <h2>할 일 {undoneTasks.length}개 남음</h2>
     </div>
