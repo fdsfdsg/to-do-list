@@ -5,19 +5,10 @@ import TodoHeader from "./TodoHeader";
 
 const Todo2 = () => {
   const [todoInput, setTodoInput] = useState("");
-  const [todo, setTodo] = useState([
-    {
-      id: 1,
-      text: "리액트 공부",
-      checked: false,
-    },
-    {
-      id: 2,
-      text: "노드공부",
-      checked: true,
-    },
-  ]);
-  let nextId = useRef(3);
+  const [todo, setTodo] = useState(
+    JSON.parse(localStorage.getItem("todo")) || []
+  );
+  let nextId = useRef(1);
 
   //   const setTestData = () => {
   //     let a = [];
@@ -29,7 +20,8 @@ const Todo2 = () => {
   //   useEffect(() => {
   //     setTestData();
   //   }, []);
-  const onClickfForm = useCallback(
+
+  const onSubmitHandler = useCallback(
     (e) => {
       e.preventDefault();
       if (!todoInput) {
@@ -37,7 +29,9 @@ const Todo2 = () => {
         return;
       }
       const todos = { id: nextId.current++, text: todoInput, checked: false };
+
       setTodo(todo.concat(todos));
+      localStorage.setItem("todo", JSON.stringify(todo.concat(todos)));
       // setTodo([
       //   ...todo,
       //   { id: nextId.current++, text: todoInput, checked: false },
@@ -47,20 +41,6 @@ const Todo2 = () => {
     [todo, todoInput]
   );
 
-  const onInsertHandler = useCallback(() => {
-    if (!todoInput) {
-      alert("할 일을 입력해주세요");
-      return;
-    }
-    const todos = { id: nextId.current++, text: todoInput, checked: false };
-    setTodo(todo.concat(todos));
-    // setTodo([
-    //   ...todo,
-    //   { id: nextId.current++, text: todoInput, checked: false },
-    // ]);
-    setTodoInput("");
-  }, [todo, todoInput]);
-
   const onChangeInput = (e) => {
     setTodoInput(e.target.value);
     console.log(e.target.value);
@@ -69,6 +49,10 @@ const Todo2 = () => {
   const onDeleteHandler = useCallback(
     (todoId) => {
       setTodo(todo.filter((todos) => todos.id !== todoId));
+      localStorage.setItem(
+        "todo",
+        JSON.stringify(todo.filter((todos) => todos.id !== todoId))
+      );
     },
     [todo]
   );
@@ -107,13 +91,11 @@ const Todo2 = () => {
       }}
     >
       <TodoHeader todo={todo} />
-
       <TodoInsert2
-        onClickfForm={onClickfForm}
+        onSubmitHandler={onSubmitHandler}
         onChangeInput={onChangeInput}
         todoInput={todoInput}
       />
-
       <div style={{ overflowY: "auto", height: 650 }}>
         <Todolist2
           todo={todo}
