@@ -3,8 +3,7 @@
 
 ## 📘 to-do-list
 
-1. typescript, redux-toolkit, AntDesign 적용해보기
-2. 구조화하기
 
 2020-12-07 하루만에 todolist 스스로 만들어보기 끝
 2020-12-08 AntD,구조화 ㄱㄱ
+2020-12-31 trello todolist
